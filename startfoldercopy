@@ -1,0 +1,14 @@
+$datestamp = [System.DateTime]::Now.ToString("yyyyMMddhhss")
+$inputdir = "
+$exportdir = "
+$logdir =  ""
+$logfile = $logdir + 'CopyLog_' + $datestamp + '.log '
+if (!(Test-Path -Path $logdir))
+{
+    New-Item -ItemType directory -Path $logdir 
+    Write-Output ("Created Log Directory: " + $logdir)
+    Write-Output (" ")
+}
+start-transcript -append -path $logfile
+./foldercopy.ps1 $inputdir $exportdir 
+stop-transcript
